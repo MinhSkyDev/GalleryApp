@@ -7,9 +7,19 @@
     tools:context=".Fragment.EditPhoto.EditPhotoActivity">
 
     <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/tick_ok_button"
+        android:src="@drawable/tick_ok"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        ></ImageView>
+
+    <ImageView
         android:id="@+id/preview_imageView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_below="@id/tick_ok_button"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="4dp"
         android:scaleType="fitCenter"></ImageView>

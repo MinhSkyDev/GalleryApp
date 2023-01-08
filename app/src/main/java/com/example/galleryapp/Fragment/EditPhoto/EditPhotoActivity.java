@@ -20,6 +20,7 @@ import android.renderscript.RenderScript;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.galleryapp.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
@@ -64,6 +65,16 @@ public class EditPhotoActivity extends AppCompatActivity {
                 Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 preview_imageView.setImageBitmap(myBitmap);
                 return true;
+            }
+        });
+
+        ImageView tick_ok_button = (ImageView) findViewById(R.id.tick_ok_button);
+        tick_ok_button.bringToFront();
+        tick_ok_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ctx.finish();
             }
         });
 

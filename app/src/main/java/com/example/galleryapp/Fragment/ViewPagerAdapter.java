@@ -49,4 +49,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public AlbumAdapter getAlbumAdapter(){
         return album_fragment.getAlbumAdapter();
     }
+
+    public void updateImageDataset(){
+        photo_fragment.updateImgageDataList();
+    }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -159,6 +160,17 @@ public class MainActivity extends AppCompatActivity
         int lastIndex_albumNames = albumNames.size() -1;
         viewPagerAdapter.getAlbumAdapter().notifyItemRangeInserted(lastIndex_albumNames,1);
 
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        viewPagerAdapter.updateImageDataset();
+
+        Log.d("OnActivityRessult","This run till here");
 
     }
 }

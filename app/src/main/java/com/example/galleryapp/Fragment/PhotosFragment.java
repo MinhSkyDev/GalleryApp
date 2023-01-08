@@ -44,6 +44,18 @@ public class PhotosFragment extends Fragment {
 
     }
 
+    public void updateImgageDataList(){
+        ImageLoader imgLoader = new ImageLoader(main);
+        _imgPath = imgLoader.get_imgPath();
+        for (String test:
+             _imgPath) {
+            Log.d("check update whole album", test);
+        }
+        imageDataAdapter = new ImageDataAdapter(_imgPath,main);
+        photo_recyclerview.setAdapter(imageDataAdapter);
+        //imageDataAdapter.notifyDataSetChanged();
+    }
+
     public void changeLayoutManager(){
         ChangePhotoLayout changePhotoLayout = new ChangePhotoLayout();
         changePhotoLayout.run();

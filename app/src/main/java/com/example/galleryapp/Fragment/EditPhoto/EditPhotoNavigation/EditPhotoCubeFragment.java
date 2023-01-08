@@ -1,6 +1,8 @@
 package com.example.galleryapp.Fragment.EditPhoto.EditPhotoNavigation;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.renderscript.RenderScript;
 import android.util.Log;
@@ -42,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class EditPhotoCubeFragment extends Fragment {
@@ -127,30 +132,30 @@ public class EditPhotoCubeFragment extends Fragment {
 
     private void saveImage() {
 
-        File dir = new File(Environment.getExternalStorageDirectory(),"SaveImage");
+        Bitmap previewBitmap = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
 
-        if (!dir.exists()){
+        FileOutputStream fos;
+        try{
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            ContentResolver resolver = activity.getContentResolver();
+            ContentValues contentValues = new ContentValues();
 
-            dir.mkdir();
 
+//            Uri file_uri = Uri.parse(new File(filepath).toString());
+            String filename = "New_new.jpg";
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME,filename);
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE,"image/jpg");
+            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_PICTURES+File.separator+"PhotorellyCreated");
+
+            Uri newFile_uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+
+            fos = (FileOutputStream) resolver.openOutputStream(Objects.requireNonNull(newFile_uri));
+            previewBitmap.compress(Bitmap.CompressFormat.JPEG,100,fos);
+            Objects.requireNonNull(fos);
+            Toast.makeText(activity,"Image Saved", Toast.LENGTH_SHORT).show();
         }
-
-        BitmapDrawable drawable = (BitmapDrawable) activity.preview_imageView.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-
-        FileOutputStream outputStream;
-
-        File file = new File(dir,System.currentTimeMillis()+".jpg");
-        try {
-            outputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
-            Toast.makeText(activity,"Successfuly Saved",Toast.LENGTH_SHORT).show();
-            outputStream.flush();
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-
+        }catch (Exception e){
+            Toast.makeText(activity, "Image not Saved", Toast.LENGTH_SHORT).show();
         }
 
 
