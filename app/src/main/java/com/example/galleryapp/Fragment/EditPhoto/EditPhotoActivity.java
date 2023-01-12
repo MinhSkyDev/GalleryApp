@@ -42,6 +42,7 @@ public class EditPhotoActivity extends AppCompatActivity {
     public ViewPager editPhoto_viewPager;
     public ChipNavigationBar navigationBar;
     public EditPhotoViewPagerAdapter editPhoto_viewPagerAdapter;
+    public Bitmap currentChooseBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class EditPhotoActivity extends AppCompatActivity {
 
         File file = new File(filepath);
         Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        currentChooseBitmap = myBitmap;
         preview_imageView.setImageBitmap(myBitmap);
 
 

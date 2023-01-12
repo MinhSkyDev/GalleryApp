@@ -54,6 +54,7 @@ public class EditPhotoRotateFragment extends Fragment {
             public void onClick(View v) {
                 bitmap_src = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
                 bitmap_src = BitmapProcessor.rotateBitmap(bitmap_src,90);
+                activity.currentChooseBitmap = bitmap_src;
                 activity.preview_imageView.setImageBitmap(bitmap_src);
 
             }
@@ -65,6 +66,7 @@ public class EditPhotoRotateFragment extends Fragment {
             public void onClick(View v) {
                 bitmap_src = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
                 bitmap_src = BitmapProcessor.createFlippedBitmap(bitmap_src,true,false);
+                activity.currentChooseBitmap = bitmap_src;
                 activity.preview_imageView.setImageBitmap(bitmap_src);
             }
         });
@@ -74,6 +76,7 @@ public class EditPhotoRotateFragment extends Fragment {
             public void onClick(View v) {
                 bitmap_src = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
                 bitmap_src = BitmapProcessor.createFlippedBitmap(bitmap_src,false,true);
+                activity.currentChooseBitmap = bitmap_src;
                 activity.preview_imageView.setImageBitmap(bitmap_src);
             }
         });

@@ -4,20 +4,20 @@
     <item
         android:id="@+id/action_cube"
         android:title="CUBE"
-        android:icon="@drawable/photo"
+        android:icon="@drawable/cube_icon"
         app:cnb_iconColor="#e32679"
         />
     <item
         android:id="@+id/action_correction"
         android:title="Correction"
-        android:icon="@drawable/album"
+        android:icon="@drawable/correction"
         app:cnb_iconColor = "#e32679"
         />
 
     <item
         android:id="@+id/action_rotate"
         android:title="Rotate"
-        android:icon="@drawable/album"
+        android:icon="@drawable/rotate"
         app:cnb_iconColor = "#e32679"
         />
 

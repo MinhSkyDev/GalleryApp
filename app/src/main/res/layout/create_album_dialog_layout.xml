@@ -24,5 +24,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:id="@+id/createAlbum_confirmButton"
-        android:text="Xác nhận"></Button>
+        android:text="Xác nhận"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/orageBackground"
+        ></Button>
 </LinearLayout>

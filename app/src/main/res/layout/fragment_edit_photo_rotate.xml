@@ -12,6 +12,9 @@
         android:text="Rotate 90*"
         android:id="@+id/rotate90"
         android:textSize="10sp"
+        android:backgroundTint="@color/orageBackground"
+        android:layout_margin="5dp"
+
         ></Button>
 
     <Button
@@ -20,6 +23,8 @@
         android:text="Flip Horizontal"
         android:id="@+id/flipHorizontal"
         android:textSize="10sp"
+        android:backgroundTint="@color/orageBackground"
+        android:layout_margin="5dp"
         ></Button>
 
     <Button
@@ -28,6 +33,8 @@
         android:text="Flip Vertical"
         android:id="@+id/flipVertical"
         android:textSize="10sp"
+        android:backgroundTint="@color/orageBackground"
+        android:layout_margin="5dp"
         ></Button>
 
 

@@ -16,19 +16,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addPreset_button"
             android:text="Add more Cube"
+            android:layout_marginHorizontal="30dp"
+            android:backgroundTint="@color/orageBackground"
             ></Button>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/SaveImage_button"
             android:text="Save Image"
-
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="@color/orageBackground"
             ></Button>
 
     </LinearLayout>

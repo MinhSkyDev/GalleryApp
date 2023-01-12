@@ -133,7 +133,7 @@ public class EditPhotoCubeFragment extends Fragment {
     private void saveImage() {
 
 //        Bitmap previewBitmap = ((BitmapDrawable)activity.preview_imageView.getDrawable()).getBitmap();
-        Bitmap previewBitmap = adapter.currentChooseImage;
+        Bitmap previewBitmap = activity.currentChooseBitmap;
 
         FileOutputStream fos;
         try{

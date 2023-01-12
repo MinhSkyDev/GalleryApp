@@ -196,7 +196,10 @@ public class PhotoDialog extends AppCompatDialogFragment {
     }
 
     private void onNavigation_favourite(){
-
+        int currentViewPagerPosition = viewPager.getCurrentItem();
+        Set<String> currentAlbumSet = (HashSet<String>) activity.albumsMap.get("Favourite");
+        currentAlbumSet.add(img_path.get(currentViewPagerPosition));
+        Toast.makeText(activity, "Image added to Favourite", Toast.LENGTH_SHORT).show();
     }
 
 
