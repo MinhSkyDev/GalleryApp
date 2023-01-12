@@ -4,8 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +24,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.galleryapp.Fragment.EditPhoto.EditPhotoActivity;
 import com.example.galleryapp.MainActivity;
 import com.example.galleryapp.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 //Class này là một class kế thừa DialogFragment nên nhận layout là photo_dialog_layout
@@ -120,9 +130,10 @@ public class PhotoDialog extends AppCompatDialogFragment {
                 switch(i){
                     case R.id.editPhoto:
                         onNavigation_edit();
+
                         break;
-                    case R.id.deletePhoto:
-                        onNavigation_delete();
+                    case R.id.addToAlbum:
+                        onNavigation_addToAlbum();
                         break;
                     case R.id.sharePhoto:
                         onNavigation_share();
@@ -146,8 +157,38 @@ public class PhotoDialog extends AppCompatDialogFragment {
         startActivityForResult(intent, editPhoto_requestCode);
     }
 
-    private void onNavigation_delete(){
+    private void onNavigation_addToAlbum(){
 
+        // Hiển thị bottomsheet popup
+        int currentViewPagerPosition = viewPager.getCurrentItem();
+        BottomSheetDialog addAlbumDialong = new BottomSheetDialog(activity,R.style.BottomSheetDialogTheme);
+        View bottomSheetView = LayoutInflater.from(activity).inflate(R.layout.choose_album_layout,
+                null
+                );
+
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item,activity.albumNames);
+        Spinner spinner = (Spinner) bottomSheetView.findViewById(R.id.chooseAlbumSpinner);
+        spinner.setAdapter(spinnerArrayAdapter);
+        Button confirmButton = (Button) bottomSheetView.findViewById(R.id.chooseAlbumConfirm);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedAlbum = spinner.getSelectedItem().toString();
+                if(selectedAlbum.equals("All Images")){
+                    Toast.makeText(activity, "The image is already in All Images", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
+                    //Lấy set từ trong dictionary ra và add ảnh vô
+                    Set<String> currentAlbumSet = (HashSet<String>) activity.albumsMap.get(selectedAlbum);
+                    currentAlbumSet.add(img_path.get(currentViewPagerPosition));
+                    Toast.makeText(activity, "Image added to "+selectedAlbum, Toast.LENGTH_SHORT).show();
+                }
+                addAlbumDialong.dismiss();
+            }
+        });
+        addAlbumDialong.setContentView(bottomSheetView);
+        addAlbumDialong.show();
     }
 
     private void onNavigation_share(){

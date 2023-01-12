@@ -28,6 +28,10 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity
@@ -39,9 +43,9 @@ public class MainActivity extends AppCompatActivity
     private ChipNavigationBar navigationView;
 
 
-    private ViewPagerAdapter viewPagerAdapter;
+    public ViewPagerAdapter viewPagerAdapter;
     public ArrayList<String> albumNames = new ArrayList<String>();
-
+    public Map albumsMap = null;
 
 
     @Override
@@ -54,12 +58,25 @@ public class MainActivity extends AppCompatActivity
         //Hiển thị lời chào buổi sáng và câu Quotes
         setUpTextElement();
 
+        ReadAlbums readAlbums = new ReadAlbums(this);
+        albumsMap = readAlbums.readAlbums();
+        if(albumsMap == null){
+            albumsMap = new HashMap();
+            albumsMap.put("Favourite",new HashSet<String>());
+            readAlbums.writeAlbums(albumsMap);
+        }
+        else if(!albumsMap.containsKey("Favourite")){
+            albumsMap.put("Favourite",new HashSet<String>());
+            readAlbums.writeAlbums(albumsMap);
+        }
+        albumNames = readAlbums.getAllKey(albumsMap);
+
+
+
         navigationView = (ChipNavigationBar) findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
 
-        albumNames.add("All Images");
-        albumNames.add("Favourite");
-        albumNames.add("Trash Bin");
+
 
         navigationView.setItemSelected(R.id.action_photos,true);
         //Gắn adapter cho viewPager và navigationView, là một phương thức ở dưới class MainActivity
@@ -145,6 +162,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        ReadAlbums readAlbums = new ReadAlbums(this);
+        readAlbums.writeAlbums(albumsMap);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ReadAlbums readAlbums = new ReadAlbums(this);
+        readAlbums.writeAlbums(albumsMap);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
@@ -159,8 +193,7 @@ public class MainActivity extends AppCompatActivity
         albumNames.add(albumName);
         int lastIndex_albumNames = albumNames.size() -1;
         viewPagerAdapter.getAlbumAdapter().notifyItemRangeInserted(lastIndex_albumNames,1);
-
-
+        albumsMap.put(albumName,new HashSet<String>());
     }
 
 
@@ -172,5 +205,10 @@ public class MainActivity extends AppCompatActivity
 
         Log.d("OnActivityRessult","This run till here");
 
+    }
+
+    public void switchTabToPhoto(){
+        navigationView.setItemSelected(R.id.action_photos,true);
+        viewPager.setCurrentItem(0);
     }
 }

@@ -30,6 +30,7 @@ public class PreviewFilterImageAdapter extends RecyclerView.Adapter<PreviewFilte
     private BitmapProcessor processor;
     private String filepath;
     private Bitmap srcImage;
+    public Bitmap currentChooseImage;
 
     public PreviewFilterImageAdapter(EditPhotoActivity editPhotoActivity, String filePath ,ArrayList<CubeDataLoader> cubes , RenderScript renderScript){
         this.cubes = cubes;
@@ -38,6 +39,7 @@ public class PreviewFilterImageAdapter extends RecyclerView.Adapter<PreviewFilte
         this.filepath = filePath;
         this.srcImage = BitmapFactory.decodeFile(filepath);
         this.processor = new BitmapProcessor(srcImage, activity, renderScript);
+        this.currentChooseImage = srcImage;
     }
 
     @NonNull
@@ -59,7 +61,7 @@ public class PreviewFilterImageAdapter extends RecyclerView.Adapter<PreviewFilte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                currentChooseImage = image;
                 ImageView preview_filter_imageView = activity.findViewById(R.id.preview_imageView);
                 preview_filter_imageView.setImageBitmap(image);
 

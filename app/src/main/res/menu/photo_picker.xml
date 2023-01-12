@@ -24,8 +24,8 @@
         />
 
     <item
-        android:id="@+id/deletePhoto"
-        android:title="@string/delete"
+        android:id="@+id/addToAlbum"
+        android:title="@string/addAlbum"
         android:icon="@drawable/trashbin"
         app:cnb_iconColor = "#e32679"
         />

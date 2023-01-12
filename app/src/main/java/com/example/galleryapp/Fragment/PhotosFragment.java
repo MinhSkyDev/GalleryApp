@@ -28,7 +28,7 @@ public class PhotosFragment extends Fragment {
     private MainActivity main;
     private RecyclerView photo_recyclerview;
     private ImageDataAdapter imageDataAdapter;
-
+    private ImageLoader imgLoader;
     private String currentLayout;
 
     @Override
@@ -37,11 +37,22 @@ public class PhotosFragment extends Fragment {
 
         main = (MainActivity) getActivity();
 
-
-        ImageLoader imgLoader = new ImageLoader(main);
+        imgLoader = new ImageLoader(main);
         _imgPath = imgLoader.get_imgPath();
         imageDataAdapter = new ImageDataAdapter(_imgPath,main);
 
+    }
+
+    public void updateAllImage(){
+        _imgPath = imgLoader.get_imgPath();
+        imageDataAdapter = new ImageDataAdapter(_imgPath,main);
+        photo_recyclerview.setAdapter(imageDataAdapter);
+    }
+
+    public void updateImagePath(ArrayList<String> newImagePath){
+        _imgPath = newImagePath;
+        imageDataAdapter = new ImageDataAdapter(_imgPath,main);
+        photo_recyclerview.setAdapter(imageDataAdapter);
     }
 
     public void updateImgageDataList(){
@@ -61,6 +72,10 @@ public class PhotosFragment extends Fragment {
         changePhotoLayout.run();
     }
 
+    public ImageDataAdapter getPhotoAdapter() {
+        return imageDataAdapter;
+    }
+
 
     private class ChangePhotoLayout extends Thread{
 
@@ -73,8 +88,6 @@ public class PhotosFragment extends Fragment {
 
             if(currentLayout.equals("Grid")){
                 photo_recyclerview.setLayoutManager(linearLayoutManager);
-
-
                 currentLayout = "Linear";
 
             }else{

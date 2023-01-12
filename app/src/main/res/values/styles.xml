@@ -6,6 +6,19 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="windowSplashScreenAnimationDuration">600</item>
         <item name="postSplashScreenTheme">@style/Theme.GalleryApp</item>
+        
     </style>
+    
+    <style name="BottomSheetDialogTheme" parent = "Theme.Design.Light.BottomSheetDialog"
+        >
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+
+    </style>
+    
+    
+    <style name="BottomSheetStyle" parent = "Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 
 </resources>

@@ -131,8 +131,8 @@ public class BitmapProcessor {
             mBitmap = bmp;
 
             mBitmap = Bitmap.createScaledBitmap(mBitmap,
-                    (int) (mBitmap.getWidth() *0.5) ,
-                    (int) (mBitmap.getHeight() *0.5), true
+                    (int) (mBitmap.getWidth() *0.9) ,
+                    (int) (mBitmap.getHeight() *0.9), true
             );
 
             mOutputBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), mBitmap.getConfig());

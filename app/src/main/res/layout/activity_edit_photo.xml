@@ -18,10 +18,10 @@
     <ImageView
         android:id="@+id/preview_imageView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="440dp"
         android:layout_below="@id/tick_ok_button"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:scaleType="fitCenter"></ImageView>
 
     <androidx.viewpager.widget.ViewPager
